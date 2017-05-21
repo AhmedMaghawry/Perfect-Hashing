@@ -9,7 +9,7 @@ import java.io.IOException;
 public class reader {
     
     private File file;
-    private int[] nums;
+    int max = Integer.MIN_VALUE;
     
     public reader(File file) {
         this.file = file;
@@ -22,10 +22,13 @@ public class reader {
             fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();
-            String[] firstLine = line.split(" ");
+            String[] firstLine = line.split(",");
             res = new int[firstLine.length];
             for(int i = 0; i < firstLine.length; i++) {
-                res[i] = Integer.parseInt(firstLine[i]);
+                int temp = Integer.parseInt(firstLine[i]);
+                res[i] = temp;
+                if(temp > max)
+                    max = temp;
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
@@ -35,16 +38,10 @@ public class reader {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        nums = res;
         return res;
     }
 
     public int getMax() {
-        int max = Integer.MIN_VALUE;
-        for(int x : nums) {
-            if(max < x)
-                max = x;
-        }
         return max;
     }
 }
